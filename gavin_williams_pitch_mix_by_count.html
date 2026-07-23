@@ -1,0 +1,38 @@
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; font-size: 12px; color: var(--text-secondary);">
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #2a78d6;"></span>Sinker</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #eb6834;"></span>4-Seam</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #1baf7a;"></span>Curveball</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #eda100;"></span>Sweeper</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #e87ba4;"></span>Cutter</span>
+</div>
+<div style="position: relative; width: 100%; height: 300px;">
+  <canvas id="pitchMixChart" role="img" aria-label="Stacked bar chart of Gavin Williams pitch mix percentage by count situation: first pitch, pitcher ahead, hitter ahead, and even counts">First pitch: Sinker 26%, 4-Seam 21%, Curveball 21%, Sweeper 21%, Cutter 11%. Pitcher ahead: 4-Seam 30%, Sweeper 29%, Curveball 28%, Sinker 9%, Cutter 4%. Hitter ahead: Sinker 30%, 4-Seam 20%, Sweeper 20%, Curveball 15%, Cutter 14%. Even: Sweeper 37%, Curveball 23%, 4-Seam 19%, Sinker 14%, Cutter 7%.</canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('pitchMixChart'), {
+  type: 'bar',
+  data: {
+    labels: ['First pitch', 'Pitcher ahead', 'Hitter ahead', 'Even count'],
+    datasets: [
+      { label: 'Sinker', data: [26.2, 9.0, 30.2, 14.0], backgroundColor: '#2a78d6' },
+      { label: '4-Seam', data: [21.4, 30.0, 20.3, 19.1], backgroundColor: '#eb6834' },
+      { label: 'Curveball', data: [21.0, 28.2, 15.4, 22.8], backgroundColor: '#1baf7a' },
+      { label: 'Sweeper', data: [20.5, 29.2, 19.8, 37.4], backgroundColor: '#eda100' },
+      { label: 'Cutter', data: [10.9, 3.6, 14.3, 6.7], backgroundColor: '#e87ba4' }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: '#898781' } },
+      y: { stacked: true, max: 100, grid: { color: '#e1e0d9' }, ticks: { color: '#898781', callback: (v) => v + '%' } }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: (ctx) => ctx.dataset.label + ': ' + ctx.parsed.y + '%' } }
+    }
+  }
+});
+</script>
